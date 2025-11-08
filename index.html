@@ -10,14 +10,24 @@
 <body>
     <header>
         <div class="container">
-            <h1>OpenSeat</h1>
-            <p class="tagline">Stevens Library Crowd Levels</p>
-            <nav aria-label="Main navigation">
-                <ul>
-                    <li><a href="index.html" aria-current="page">Home</a></li>
-                    <li><a href="pages/about.html">About</a></li>
-                </ul>
-            </nav>
+            <div class="header-content">
+                <div class="branding">
+                    <h1>OpenSeat</h1>
+                    <p class="tagline">Stevens Library Crowd Levels</p>
+                </div>
+                <div class="header-controls">
+                    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                        <span class="theme-icon">🌙</span>
+                    </button>
+                    <nav aria-label="Main navigation">
+                        <ul>
+                            <li><a href="index.html" aria-current="page">Home</a></li>
+                            <li><a href="pages/about.html">About</a></li>
+                            <li><a href="pages/submit.html">Submit Report</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -25,7 +35,11 @@
         <section class="hero">
             <div class="container">
                 <h2>Find Your Study Spot</h2>
-                <p>See real-time crowd levels reported by students across all library floors.</p>
+                <p>See real-time crowd levels reported by students across all three library floors.</p>
+                <div class="hero-actions">
+                    <a href="pages/submit.html" class="btn-primary">Submit Report</a>
+                    <p class="hero-subtext">Help keep our data fresh and accurate!</p>
+                </div>
             </div>
         </section>
 
@@ -49,66 +63,12 @@
                 </div>
             </div>
         </section>
-
-        <section class="submit-cta">
-            <div class="container">
-                <h2>Help Keep Data Fresh</h2>
-                <p>Scan the QR code at the library or use the form below to report current crowd levels.</p>
-                <a href="#submit-form" class="btn-primary">Submit Report</a>
-            </div>
-        </section>
-
-        <section id="submit-form" class="report-form">
-            <div class="container">
-                <h2>Report Crowd Level</h2>
-                <form id="crowd-report-form" aria-labelledby="form-heading">
-                    <div class="form-group">
-                        <label for="floor-select">Which floor are you currently on?</label>
-                        <select id="floor-select" name="floor" required>
-                            <option value="">Select a floor</option>
-                            <option value="1">Floor 1</option>
-                            <option value="2">Floor 2</option>
-                            <option value="3">Floor 3</option>
-                        </select>
-                    </div>
-
-                    <fieldset>
-                        <legend>How crowded is it?</legend>
-                        <div class="radio-group">
-                            <label>
-                                <input type="radio" name="crowd-level" value="1" required>
-                                <span>1 - Empty</span>
-                            </label>
-                            <label>
-                                <input type="radio" name="crowd-level" value="2">
-                                <span>2 - Quiet</span>
-                            </label>
-                            <label>
-                                <input type="radio" name="crowd-level" value="3">
-                                <span>3 - Moderate</span>
-                            </label>
-                            <label>
-                                <input type="radio" name="crowd-level" value="4">
-                                <span>4 - Busy</span>
-                            </label>
-                            <label>
-                                <input type="radio" name="crowd-level" value="5">
-                                <span>5 - Packed</span>
-                            </label>
-                        </div>
-                    </fieldset>
-
-                    <button type="submit" class="btn-primary">Submit Report</button>
-                    <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
-                </form>
-            </div>
-        </section>
     </main>
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 OpenSeat. A student project for Stevens Institute of Technology.</p>
-            <p><a href="pages/about.html">Learn more about this project</a></p>
+            <p>&copy; 2025 OpenSeat (definitely legally recognized). A student project for CS-146 @ Stevens Institute of Technology.</p>
+            <p><a href="https://github.com/ButterMyGit/OpenSeat">View the website's source code!</a></p>
         </div>
     </footer>
 
