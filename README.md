@@ -4,3 +4,9 @@
 3. Push: `git push origin yourname-feature`
 4. Open a Pull Request → wait for approval
 5. After merge, pull the new main: `git pull origin main`
+
+### Credits
+- Anthony Kanev
+- Riyan Mehta
+- Alena Liakhava
+- Josh Grzyb
