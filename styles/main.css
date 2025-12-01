@@ -1,6 +1,4 @@
-/* ___________
-   Base Styles
-   ___________ */
+/* Base Styles */
 
 * {
     margin: 0;
@@ -31,9 +29,7 @@ body.dark-mode {
     padding: 0 24px;
 }
 
-/* __________
-   Typography
-   __________ */
+/* Typography */
 
 h1 {
     font-size: 36px;
@@ -87,9 +83,7 @@ body.dark-mode a:hover {
     color: #a5b4fc;
 }
 
-/* ______
-   Header
-   ______ */
+/* Header */
 
 header {
     background-color: #ffffff;
@@ -98,6 +92,8 @@ header {
     position: sticky;
     top: 0;
     z-index: 100;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
 }
 
 body.dark-mode header {
@@ -138,7 +134,7 @@ body.dark-mode .tagline {
     gap: 24px;
 }
 
-/* Theme Toggle Button */
+/* Theme Toggle */
 .theme-toggle {
     background: #e9ecef;
     border: 1px solid #dee2e6;
@@ -196,29 +192,31 @@ nav a[aria-current="page"] {
     color: white;
 }
 
-body.dark-mode nav a[aria-current="page"] {
-    background: linear-gradient(135deg, #4f46e5 0%, #717de8 100%);
-}
-
-/* ____________
-   Hero Section
-   ____________ */
-
-.hero {
+/* Hero Section */
+.hero,
+.submit-hero,
+.about-hero {
     background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
     color: white;
     padding: 48px 0;
     text-align: center;
     margin: 32px auto;
+    border-radius: 16px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.hero h2 {
+.hero h2,
+.submit-hero h2,
+.about-hero h2 {
     color: white;
     margin-bottom: 16px;
 }
 
-.hero p:not(.hero-subtext) {
+.hero p:not(.btn-primary),
+.hero .lead,
+.submit-hero p:not(.btn-primary),
+.submit-hero .lead,
+.about-hero .lead {
     color: #ffffff;
     font-size: 18px;
     max-width: 600px;
@@ -243,9 +241,7 @@ body.dark-mode .hero-subtext {
     color: rgba(255, 255, 255, 0.95);
 }
 
-/* __________________
-   Floor Data Section
-   __________________ */
+/* Floor Data Section */
 
 .floor-data {
     padding: 48px 0;
@@ -280,7 +276,7 @@ body.dark-mode .last-updated {
     margin-right: auto;
 }
 
-/* Floor Card Styles */
+/* Floor Cards */
 .floor-card {
     background-color: #ffffff;
     border: 1px solid #dee2e6;
@@ -327,22 +323,7 @@ body.dark-mode .card-meta {
     font-size: 13px;
 }
 
-/* Crowd level colors */
-.crowd-low {
-    background-color: #10b981;
-}
-
-.crowd-medium {
-    background-color: #f59e0b;
-}
-
-.crowd-high {
-    background-color: #ef4444;
-}
-
-/* ______________
-   Charts Section
-   ______________ */
+/* Charts Section */
 
 .charts {
     padding: 48px 0;
@@ -392,14 +373,12 @@ body.dark-mode .chart-status {
     color: #cbd5f5;
 }
 
-/* _____________
-   Button Styles
-   _____________ */
+/* Buttons */
 
 .btn-primary {
     display: inline-block;
     background-color: #6366f1;
-    color: white;
+    color: white !important;
     padding: 16px 32px;
     border-radius: 8px;
     font-weight: 600;
@@ -415,20 +394,10 @@ body.dark-mode .chart-status {
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     text-decoration: none;
-    color: white;
+    color: white !important;
 }
 
-body.dark-mode .btn-primary {
-    color: white;
-}
-
-body.dark-mode .btn-primary:hover {
-    color: white;
-}
-
-/* ___________________
-   Report Form Section
-   ___________________ */
+/* Report Form */
 
 .report-form {
     padding: 48px 0;
@@ -573,9 +542,7 @@ body.dark-mode .form-note {
     color: #adb5bd;
 }
 
-/* ______
-   Footer
-   ______ */
+/* Footer */
 
 footer {
     background-color: #ffffff;
@@ -583,6 +550,8 @@ footer {
     padding: 32px 0;
     text-align: center;
     margin-top: 48px;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
 }
 
 body.dark-mode footer {
@@ -595,12 +564,17 @@ footer p {
     font-size: 14px;
 }
 
-/* _________________________
-   Team Section (About Page)
-   _________________________ */
+/* Team Section (About Page) */
 
 .team-section {
-    padding: 32px 0;
+    padding: 48px 0;
+    background-color: #ffffff;
+    border-radius: 16px;
+    margin: 32px 0;
+}
+
+body.dark-mode .team-section {
+    background-color: #2d2d2d;
 }
 
 .team-section h2 {
@@ -618,7 +592,6 @@ footer p {
 
 .team-grid {
     display: flex;
-    flex-direction: row;
     flex-wrap: nowrap;
     gap: 32px;
     margin-top: 32px;
@@ -703,61 +676,7 @@ body.dark-mode .member-role {
     line-height: 1.6;
 }
 
-/* ________________
-   Submit Page Hero
-   ________________ */
-
-.submit-hero {
-    background: linear-gradient(135deg, #4f46e5 0%, #717de8 100%);
-    color: white;
-    padding: 48px 0;
-    text-align: center;
-    margin: 32px auto;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.submit-hero h2 {
-    color: white;
-    margin-bottom: 16px;
-}
-
-.submit-hero p {
-    color: #ffffff;
-    font-size: 18px;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-/* ________________
-   About Page Hero
-   ________________ */
-
-.about-hero {
-    background: linear-gradient(135deg, #4f46e5 0%, #6372f4 100%);
-    color: white;
-    padding: 48px 0;
-    text-align: center;
-    margin: 32px auto;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.about-hero h2 {
-    color: white;
-    margin-bottom: 16px;
-}
-
-.about-hero .lead,
-.hero .lead,
-.submit-hero .lead {
-    color: #ffffff;
-    font-size: 18px;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-/* _________________________________
-   How to Help Section (Submit Page)
-   _________________________________ */
+/* How to Help Section (Submit Page) */
 
 .how-to-help {
     padding: 48px 0;
@@ -806,12 +725,17 @@ body.dark-mode .help-item h3 {
     margin: 0;
 }
 
-/* _____________________
-   About Page Content
-   _____________________ */
+/* About Page Content */
 
 .about-content {
     padding: 48px 0;
+    background-color: #ffffff;
+    border-radius: 16px;
+    margin: 32px 0;
+}
+
+body.dark-mode .about-content {
+    background-color: #2d2d2d;
 }
 
 .about-content article {
@@ -824,10 +748,7 @@ body.dark-mode .help-item h3 {
     padding: 48px 0;
 }
 
-/* _____________________
-   Responsive Design
-   _____________________ */
-/* Tablet */
+/* Responsive Design - Tablet */
 @media only screen and (min-width: 400px) and (max-width: 998px) {
     .header-content {
         flex-direction: column;
@@ -881,7 +802,7 @@ body.dark-mode .help-item h3 {
     }
 }
 
-/* Mobile (max-width: 399px) */
+/* Responsive Design - Mobile */
 @media only screen and (max-width: 399px) {
     .header-content {
         flex-direction: column;
