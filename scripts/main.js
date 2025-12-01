@@ -1,5 +1,15 @@
 // OpenSeat - Main JavaScript
 
+// Shrinking Header on Scroll
+window.addEventListener('scroll', () => {
+    const header = document.querySelector('header');
+    if (window.scrollY > 50) {
+        header.classList.add('header--scrolled');
+    } else {
+        header.classList.remove('header--scrolled');
+    }
+});
+
 // Theme Toggle
 function initThemeToggle() {
     const toggle = document.getElementById('theme-toggle');

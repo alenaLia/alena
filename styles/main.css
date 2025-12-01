@@ -94,6 +94,11 @@ header {
     z-index: 100;
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
+    transition: padding 0.3s ease;
+}
+
+header.header--scrolled {
+    padding: 12px 0;
 }
 
 body.dark-mode header {
@@ -122,6 +127,14 @@ body.dark-mode .branding h1 {
     font-size: 14px;
     color: #6c757d;
     margin: 0;
+    transition: opacity 0.3s ease, max-height 0.3s ease;
+    max-height: 50px;
+    overflow: hidden;
+}
+
+header.header--scrolled .tagline {
+    opacity: 0;
+    max-height: 0;
 }
 
 body.dark-mode .tagline {
