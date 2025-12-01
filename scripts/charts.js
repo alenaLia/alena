@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			if (!data || data.length === 0) throw new Error('No data');
 			
 			drawChart(canvas, data);
-			if (status) status.textContent = 'Sunday, November 30 (8 AM - 8 PM).';
+			if (status) status.style.display = 'none';
 		})
 		.catch(error => {
 			console.error('Unable to load chart data', error);
@@ -26,17 +26,23 @@ function drawChart(canvas, data) {
 	const ctx = canvas.getContext('2d');
 	const w = canvas.width;
 	const h = canvas.height;
-	const pad = 50;
-	
+	const pad = 60;
+	const rightPad = 30;
+
 	ctx.clearRect(0, 0, w, h);
-	
-	// Background gradient
-	const gradient = ctx.createLinearGradient(0, 0, 0, h);
-	gradient.addColorStop(0, '#ffffff');
-	gradient.addColorStop(1, '#e0e7ff');
-	ctx.fillStyle = gradient;
-	ctx.fillRect(0, 0, w, h);
-	
+
+	// White background with rounded corners
+	ctx.fillStyle = '#ffffff';
+	ctx.beginPath();
+	ctx.roundRect(0, 0, w, h, 8);
+	ctx.fill();
+
+	// Clip to rounded rectangle for all subsequent drawing
+	ctx.save();
+	ctx.beginPath();
+	ctx.roundRect(0, 0, w, h, 8);
+	ctx.clip();
+
 	// Grid lines
 	ctx.strokeStyle = '#dbe1f0';
 	ctx.lineWidth = 1;
@@ -47,12 +53,12 @@ function drawChart(canvas, data) {
 		const y = h - pad - (i / 5) * (h - pad * 2);
 		ctx.beginPath();
 		ctx.moveTo(pad, y);
-		ctx.lineTo(w - pad, y);
+		ctx.lineTo(w - rightPad, y);
 		ctx.stroke();
 		if (i > 0) ctx.fillText(i.toString(), pad - 30, y + 4);
 	}
 	
-	const step = (w - pad * 2) / (data.length - 1);
+	const step = (w - pad - rightPad) / (data.length - 1);
 	for (let i = 0; i < data.length; i++) {
 		const x = pad + i * step;
 		ctx.beginPath();
@@ -67,19 +73,25 @@ function drawChart(canvas, data) {
 	ctx.beginPath();
 	ctx.moveTo(pad, pad);
 	ctx.lineTo(pad, h - pad);
-	ctx.lineTo(w - pad, h - pad);
+	ctx.lineTo(w - rightPad, h - pad);
 	ctx.stroke();
 	
 	// Y-axis label
 	ctx.save();
-	ctx.translate(pad - 40, h / 2);
+	ctx.translate(15, h / 2);
 	ctx.rotate(-Math.PI / 2);
 	ctx.textAlign = 'center';
 	ctx.fillStyle = '#111827';
 	ctx.font = '14px Arial';
 	ctx.fillText('Busyness Level (1-5)', 0, 0);
 	ctx.restore();
-	
+
+	// X-axis title
+	ctx.textAlign = 'center';
+	ctx.fillStyle = '#111827';
+	ctx.font = '14px Arial';
+	ctx.fillText('Sunday, November 30 (8 AM - 8 PM)', (w - rightPad + pad) / 2, h - 10);
+
 	// Draw line and fill
 	ctx.lineWidth = 3;
 	ctx.strokeStyle = '#4f46e5';
@@ -123,5 +135,6 @@ function drawChart(canvas, data) {
 		ctx.fillStyle = '#4b5563';
 		ctx.fillText(label, x, h - pad + 18);
 	});
-}
 
+	ctx.restore();
+}
