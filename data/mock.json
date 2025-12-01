@@ -1,0 +1,19 @@
+[
+  { "floor": "1st Floor", "timestamp": "2025-11-30T08:00:00-05:00", "busyness": 1 },
+  { "floor": "1st Floor", "timestamp": "2025-11-30T09:00:00-05:00", "busyness": 1 },
+  { "floor": "1st Floor", "timestamp": "2025-11-30T10:00:00-05:00", "busyness": 2 },
+  { "floor": "1st Floor", "timestamp": "2025-11-30T15:00:00-05:00", "busyness": 2 },
+  { "floor": "2nd Floor", "timestamp": "2025-11-30T08:00:00-05:00", "busyness": 2 },
+  { "floor": "2nd Floor", "timestamp": "2025-11-30T10:00:00-05:00", "busyness": 3 },
+  { "floor": "2nd Floor", "timestamp": "2025-11-30T12:00:00-05:00", "busyness": 3 },
+  { "floor": "2nd Floor", "timestamp": "2025-11-30T14:00:00-05:00", "busyness": 4 },
+  { "floor": "2nd Floor", "timestamp": "2025-11-30T16:00:00-05:00", "busyness": 3 },
+  { "floor": "2nd Floor", "timestamp": "2025-11-30T18:00:00-05:00", "busyness": 3 },
+  { "floor": "3rd Floor", "timestamp": "2025-11-30T09:00:00-05:00", "busyness": 3 },
+  { "floor": "3rd Floor", "timestamp": "2025-11-30T11:00:00-05:00", "busyness": 4 },
+  { "floor": "3rd Floor", "timestamp": "2025-11-30T13:00:00-05:00", "busyness": 5 },
+  { "floor": "3rd Floor", "timestamp": "2025-11-30T15:00:00-05:00", "busyness": 5 },
+  { "floor": "3rd Floor", "timestamp": "2025-11-30T17:00:00-05:00", "busyness": 4 },
+  { "floor": "3rd Floor", "timestamp": "2025-11-30T19:00:00-05:00", "busyness": 4 },
+  { "floor": "3rd Floor", "timestamp": "2025-11-30T20:00:00-05:00", "busyness": 3 }
+]

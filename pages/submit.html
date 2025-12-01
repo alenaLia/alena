@@ -35,7 +35,7 @@
         <section class="submit-hero">
             <div class="container">
                 <h2>Help Keep Data Fresh</h2>
-                <p>Your report helps other students find the best study spot. Takes less than 30 seconds!</p>
+                <p class="lead">Your report helps other students find the best study spot. Takes less than 30 seconds!</p>
             </div>
         </section>
 
@@ -43,26 +43,48 @@
             <div class="container">
                 <h2>Report Crowd Level</h2>
                 <p class="form-description">Submit your report and help other students find the best study spot.</p>
-                <div class="google-form-wrapper">
-                    <iframe 
-                        src="https://docs.google.com/forms/d/e/1FAIpQLSfj0oouZCKiyTanzFv21wca0yVxChuOQBfU6hN7omaogI_-wA/viewform?usp=header" 
-                        width="100%" 
-                        height="800" 
-                        frameborder="0" 
-                        marginheight="0" 
-                        marginwidth="0"
-                        title="Report Crowd Level Form">
-                        Loading form…
-                    </iframe>
+
+                <form id="crowd-report-form" class="simple-form">
+                    <label for="floor">What floor are you on?</label>
+                    <select id="floor" name="floor">
+                        <option value="">Select a floor</option>
+                        <option value="1st Floor">1st Floor</option>
+                        <option value="2nd Floor">2nd Floor</option>
+                        <option value="3rd Floor">3rd Floor</option>
+                    </select>
+
+                    <label for="busyness">How busy is it right now?</label>
+                    <input type="range" id="busyness" name="busyness" min="1" max="5" value="3" step="1">
+                    <div class="range-ticks" aria-hidden="true">
+                        <span>1</span>
+                        <span>2</span>
+                        <span>3</span>
+                        <span>4</span>
+                        <span>5</span>
+                    </div>
+                    <p class="busyness-output">Current rating: <span id="busyness-label">3</span>/5</p>
+
+                    <label for="notes">Anything other students should know?</label>
+                    <textarea id="notes" name="notes" rows="4" placeholder="Optional: outlets are gone, someone brought a saxophone..."></textarea>
+
+                    <div class="form-buttons">
+                        <button type="submit" class="btn-primary">Submit Report</button>
+                        <button type="reset" class="btn-secondary">Reset</button>
+                    </div>
+                </form>
+
+                <div class="submission-log">
+                    <h3>(Your) Latest Reports</h3>
+                    <ul id="report-list">
+                        <li>No reports yet. Be the hero Stevens deserves.</li>
+                    </ul>
                 </div>
-                
+
                 <p class="form-note">
-                    <small>Your response helps keep our data accurate and current. Thank you for contributing!</small>
+                    <small>Your response will (not) help keep our data accurate and current. Thank you for contributing!</small>
                 </p>
             </div>
         </section>
-    </main>
-
     </main>
 
     <footer>
@@ -73,5 +95,6 @@
     </footer>
 
     <script src="../scripts/main.js"></script>
+    <script src="../scripts/submit.js"></script>
 </body>
 </html>

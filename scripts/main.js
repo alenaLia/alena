@@ -1,139 +1,132 @@
-/**
- * OpenSeat - Main JavaScript
- * Handles theme toggling, data loading, and UI updates
- */
+// OpenSeat - Main JavaScript
 
-// ============================================
-// Theme Toggle Functionality
-// ============================================
+// Shrinking Header on Scroll
+window.addEventListener('scroll', () => {
+    const header = document.querySelector('header');
+    if (window.scrollY > 50) {
+        header.classList.add('header--scrolled');
+    } else {
+        header.classList.remove('header--scrolled');
+    }
+});
 
+// Theme Toggle
 function initThemeToggle() {
-    const themeToggle = document.getElementById('theme-toggle');
-    const themeIcon = themeToggle.querySelector('.theme-icon');
+    const toggle = document.getElementById('theme-toggle');
+    const icon = toggle.querySelector('.theme-icon');
     
-    // Check for saved theme preference or default to light mode
     const savedTheme = localStorage.getItem('theme') || 'light';
     if (savedTheme === 'dark') {
         document.body.classList.add('dark-mode');
+        icon.textContent = '☀️';
+    } else {
+        icon.textContent = '🌙';
     }
-    updateThemeIcon(savedTheme, themeIcon);
     
-    // Toggle theme on button click
-    themeToggle.addEventListener('click', () => {
+    toggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
         const isDark = document.body.classList.contains('dark-mode');
-        const newTheme = isDark ? 'light' : 'dark';
-        
-        if (newTheme === 'dark') {
-            document.body.classList.add('dark-mode');
-        } else {
-            document.body.classList.remove('dark-mode');
-        }
-        
-        localStorage.setItem('theme', newTheme);
-        updateThemeIcon(newTheme, themeIcon);
+        icon.textContent = isDark ? '☀️' : '🌙';
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
     });
 }
 
-function updateThemeIcon(theme, iconElement) {
-    iconElement.textContent = theme === 'light' ? '🌙' : '☀️';
+// Data Loading
+async function loadData() {
+    try {
+        const response = await fetch('data/mock.json');
+        const data = await response.json();
+        
+        const floorMap = {};
+        data.forEach(entry => {
+            if (!floorMap[entry.floor]) {
+                floorMap[entry.floor] = [];
+            }
+            floorMap[entry.floor].push(entry);
+        });
+        
+        const floors = [];
+        for (const floorName in floorMap) {
+            const entries = floorMap[floorName];
+            const total = entries.reduce((sum, e) => sum + e.busyness, 0);
+            const avg = Math.round(total / entries.length);
+            
+            floors.push({
+                floor: parseInt(floorName),
+                score: avg,
+                reportCount: entries.length
+            });
+        }
+        
+        floors.sort((a, b) => a.floor - b.floor);
+        return { floors };
+    } catch (error) {
+        console.error('Error loading data:', error);
+        return null;
+    }
 }
 
-// ============================================
-// Data Loading & Display
-// ============================================
-
 function updateLastUpdateTime() {
-    const timeElement = document.getElementById('last-update-time');
-    if (timeElement) {
+    const timeEl = document.getElementById('last-update-time');
+    if (timeEl) {
         const now = new Date();
-        const timeString = now.toLocaleTimeString('en-US', { 
+        timeEl.textContent = now.toLocaleTimeString('en-US', { 
             hour: 'numeric', 
             minute: '2-digit',
             hour12: true 
         });
-        timeElement.textContent = timeString;
     }
 }
 
 function renderFloorCards(floorData) {
-    const floorList = document.getElementById('floor-list');
-    if (!floorList) return;
+    const list = document.getElementById('floor-list');
+    if (!list) return;
     
-    // Clear loading message
-    floorList.innerHTML = '';
-    
-    // Create floor cards
+    list.innerHTML = '';
     floorData.forEach(floor => {
-        const card = createFloorCard(floor);
-        floorList.appendChild(card);
+        list.appendChild(createFloorCard(floor));
     });
 }
 
 function createFloorCard(floor) {
     const card = document.createElement('div');
-    card.className = 'floor-card';
+    card.className = 'floor-card floor-card--square';
     
-    const crowdLevel = getCrowdLevel(floor.occupancy);
-    const crowdText = getCrowdText(floor.occupancy);
-    
+    const score = floor.score || 3;
+    const text = getCrowdText(score);
+
     card.innerHTML = `
         <h3>Floor ${floor.floor}</h3>
-        <div class="crowd-level">${Math.round(floor.occupancy)}%</div>
-        <p>${crowdText}</p>
-        <div class="crowd-indicator">
-            <div class="crowd-indicator-fill crowd-${crowdLevel}" 
-                 style="width: ${floor.occupancy}%"
-                 role="progressbar" 
-                 aria-valuenow="${floor.occupancy}" 
-                 aria-valuemin="0" 
-                 aria-valuemax="100">
-            </div>
-        </div>
-        <p style="margin-top: 0.5rem; font-size: 0.875rem;">
-            ${floor.reportCount || 0} recent reports
-        </p>
+        <p class="crowd-score">${score} / 5</p>
+        <p class="crowd-description">${text}</p>
+        <p class="card-meta">${floor.reportCount || 0} recent reports</p>
     `;
-    
+
     return card;
 }
 
-function getCrowdLevel(occupancy) {
-    if (occupancy < 40) return 'low';
-    if (occupancy < 70) return 'medium';
-    return 'high';
-}
-
-function getCrowdText(occupancy) {
-    if (occupancy < 20) return '🟢 Very Quiet';
-    if (occupancy < 40) return '🟢 Quiet';
-    if (occupancy < 60) return '🟡 Moderate';
-    if (occupancy < 80) return '🟠 Busy';
+function getCrowdText(score) {
+    if (score <= 1) return '🟢 Very Quiet';
+    if (score === 2) return '🟢 Quiet';
+    if (score === 3) return '🟡 Moderate';
+    if (score === 4) return '🟠 Busy';
     return '🔴 Very Crowded';
 }
 
-// ============================================
 // Initialization
-// ============================================
-
-document.addEventListener('DOMContentLoaded', () => {
-    // Initialize theme toggle
+document.addEventListener('DOMContentLoaded', async () => {
     initThemeToggle();
-    
-    // Update timestamp
     updateLastUpdateTime();
-    
-    // Load and display floor data (will be replaced by actual data loading)
-    // For now, check if data.js provides a loadData function
-    if (typeof loadData === 'function') {
-        loadData().then(data => {
-            if (data && data.floors) {
-                renderFloorCards(data.floors);
-            }
-        }).catch(error => {
-            console.error('Error loading data:', error);
-        });
-    }
-    
-    // Update time every minute
     setInterval(updateLastUpdateTime, 60000);
+    
+    const data = await loadData();
+    if (data && data.floors) {
+        renderFloorCards(data.floors);
+    } else {
+        renderFloorCards([
+            { floor: 1, score: 2, reportCount: 4 },
+            { floor: 2, score: 3, reportCount: 6 },
+            { floor: 3, score: 5, reportCount: 9 }
+        ]);
+    }
 });

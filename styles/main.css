@@ -1,6 +1,4 @@
-/* ___________
-   Base Styles
-   ___________ */
+/* Base Styles */
 
 * {
     margin: 0;
@@ -31,9 +29,7 @@ body.dark-mode {
     padding: 0 24px;
 }
 
-/* __________
-   Typography
-   __________ */
+/* Typography */
 
 h1 {
     font-size: 36px;
@@ -87,9 +83,7 @@ body.dark-mode a:hover {
     color: #a5b4fc;
 }
 
-/* ______
-   Header
-   ______ */
+/* Header */
 
 header {
     background-color: #ffffff;
@@ -98,6 +92,13 @@ header {
     position: sticky;
     top: 0;
     z-index: 100;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+    transition: padding 0.3s ease;
+}
+
+header.header--scrolled {
+    padding: 12px 0;
 }
 
 body.dark-mode header {
@@ -126,6 +127,14 @@ body.dark-mode .branding h1 {
     font-size: 14px;
     color: #6c757d;
     margin: 0;
+    transition: opacity 0.3s ease, max-height 0.3s ease;
+    max-height: 50px;
+    overflow: hidden;
+}
+
+header.header--scrolled .tagline {
+    opacity: 0;
+    max-height: 0;
 }
 
 body.dark-mode .tagline {
@@ -138,7 +147,7 @@ body.dark-mode .tagline {
     gap: 24px;
 }
 
-/* Theme Toggle Button */
+/* Theme Toggle */
 .theme-toggle {
     background: #e9ecef;
     border: 1px solid #dee2e6;
@@ -196,30 +205,32 @@ nav a[aria-current="page"] {
     color: white;
 }
 
-body.dark-mode nav a[aria-current="page"] {
-    background: linear-gradient(135deg, #4f46e5 0%, #717de8 100%);
-}
-
-/* ____________
-   Hero Section
-   ____________ */
-
-.hero {
+/* Hero Section */
+.hero,
+.submit-hero,
+.about-hero {
     background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
     color: white;
     padding: 48px 0;
     text-align: center;
     margin: 32px auto;
+    border-radius: 16px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.hero h2 {
+.hero h2,
+.submit-hero h2,
+.about-hero h2 {
     color: white;
     margin-bottom: 16px;
 }
 
-.hero p {
-    color: rgba(255, 255, 255, 0.9);
+.hero p:not(.btn-primary),
+.hero .lead,
+.submit-hero p:not(.btn-primary),
+.submit-hero .lead,
+.about-hero .lead {
+    color: #ffffff;
     font-size: 18px;
     max-width: 600px;
     margin: 0 auto;
@@ -243,12 +254,14 @@ body.dark-mode .hero-subtext {
     color: rgba(255, 255, 255, 0.95);
 }
 
-/* __________________
-   Floor Data Section
-   __________________ */
+/* Floor Data Section */
 
 .floor-data {
     padding: 48px 0;
+}
+
+.floor-data h2 {
+    text-align: center;
 }
 
 .last-updated {
@@ -269,13 +282,21 @@ body.dark-mode .last-updated {
     margin-top: 24px;
 }
 
-/* Floor Card Styles */
+.floor-grid--three {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Floor Cards */
 .floor-card {
     background-color: #ffffff;
     border: 1px solid #dee2e6;
     border-radius: 16px;
-    padding: 24px;
+    padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 body.dark-mode .floor-card {
@@ -288,60 +309,44 @@ body.dark-mode .floor-card {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
-.floor-card h3 {
-    color: #6366f1;
-    margin-bottom: 16px;
+.card-meta {
+    font-size: 12px;
+    color: #6c757d;
 }
 
-body.dark-mode .floor-card h3 {
-    color: #818cf8;
+body.dark-mode .card-meta {
+    color: #c5c9d0;
 }
 
-.crowd-level {
-    font-size: 32px;
+.floor-card--square {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    aspect-ratio: 1 / 1;
+}
+
+.crowd-score {
+    font-size: 28px;
     font-weight: 700;
-    margin: 16px 0;
+    margin-bottom: 6px;
 }
 
-.crowd-indicator {
-    height: 8px;
-    background-color: #e9ecef;
-    border-radius: 4px;
-    overflow: hidden;
-    margin-top: 16px;
+.crowd-description {
+    flex: 1 1 auto;
+    font-size: 13px;
 }
 
-body.dark-mode .crowd-indicator {
-    background-color: #3a3a3a;
-}
-
-.crowd-indicator-fill {
-    height: 100%;
-    border-radius: 4px;
-}
-
-/* Crowd level colors */
-.crowd-low {
-    background-color: #10b981;
-}
-
-.crowd-medium {
-    background-color: #f59e0b;
-}
-
-.crowd-high {
-    background-color: #ef4444;
-}
-
-/* ______________
-   Charts Section
-   ______________ */
+/* Charts Section */
 
 .charts {
     padding: 48px 0;
     background-color: #ffffff;
     border-radius: 16px;
     margin: 32px 0;
+}
+
+.charts h2 {
+    text-align: center;
 }
 
 body.dark-mode .charts {
@@ -355,8 +360,9 @@ body.dark-mode .charts {
     border: 1px solid #dee2e6;
     min-height: 300px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    gap: 16px;
 }
 
 body.dark-mode #chart-container {
@@ -364,14 +370,28 @@ body.dark-mode #chart-container {
     border-color: #4a4a4a;
 }
 
-/* _____________
-   Button Styles
-   _____________ */
+#trend-canvas {
+    width: 100%;
+    max-width: 900px;
+    height: auto;
+}
+
+.chart-status {
+    font-size: 14px;
+    color: #6c757d;
+    text-align: center;
+}
+
+body.dark-mode .chart-status {
+    color: #cbd5f5;
+}
+
+/* Buttons */
 
 .btn-primary {
     display: inline-block;
     background-color: #6366f1;
-    color: white;
+    color: white !important;
     padding: 16px 32px;
     border-radius: 8px;
     font-weight: 600;
@@ -387,26 +407,20 @@ body.dark-mode #chart-container {
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     text-decoration: none;
-    color: white;
+    color: white !important;
 }
 
-body.dark-mode .btn-primary {
-    color: white;
-}
-
-body.dark-mode .btn-primary:hover {
-    color: white;
-}
-
-/* ___________________
-   Report Form Section
-   ___________________ */
+/* Report Form */
 
 .report-form {
     padding: 48px 0;
     background-color: #ffffff;
     border-radius: 16px;
     margin: 32px 0;
+}
+
+.report-form h2 {
+    text-align: center;
 }
 
 body.dark-mode .report-form {
@@ -419,25 +433,116 @@ body.dark-mode .report-form {
     font-size: 18px;
 }
 
-.google-form-wrapper {
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: #f8f9fa;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border: 1px solid #dee2e6;
+.simple-form {
+    max-width: 640px;
+    margin: 0 auto 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
-body.dark-mode .google-form-wrapper {
-    background-color: #1a1a1a;
+.simple-form label {
+    font-weight: 600;
+    color: #212529;
+}
+
+body.dark-mode .simple-form label {
+    color: #f8f9fa;
+}
+
+.simple-form select,
+.simple-form textarea,
+.simple-form input[type="range"] {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 16px;
+    background-color: #ffffff;
+}
+
+body.dark-mode .simple-form select,
+body.dark-mode .simple-form textarea,
+body.dark-mode .simple-form input[type="range"] {
+    background-color: #2d2d2d;
+    border-color: #4a4a4a;
+    color: #f8f9fa;
+}
+
+.simple-form textarea {
+    resize: vertical;
+}
+
+.busyness-output {
+    font-size: 16px;
+    color: #6c757d;
+}
+
+body.dark-mode .busyness-output {
+    color: #cfd4dc;
+}
+
+.range-ticks {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-top: 4px;
+    color: #6c757d;
+}
+
+body.dark-mode .range-ticks {
+    color: #cfd4dc;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    border: 1px solid #ced4da;
+    color: #212529;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-secondary:hover {
+    background-color: #e9ecef;
+}
+
+body.dark-mode .btn-secondary {
+    color: #f8f9fa;
     border-color: #4a4a4a;
 }
 
-.google-form-wrapper iframe {
-    display: block;
-    width: 100%;
-    border: none;
+body.dark-mode .btn-secondary:hover {
+    background-color: #3a3a3a;
+}
+
+.submission-log {
+    max-width: 640px;
+    margin: 0 auto 16px;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    border: 1px solid #dee2e6;
+    padding: 24px;
+}
+
+body.dark-mode .submission-log {
+    background-color: #1f1f1f;
+    border-color: #3a3a3a;
+}
+
+.submission-log ul {
+    list-style: disc inside;
+    color: #212529;
+}
+
+body.dark-mode .submission-log ul {
+    color: #f8f9fa;
 }
 
 .form-note {
@@ -450,9 +555,7 @@ body.dark-mode .form-note {
     color: #adb5bd;
 }
 
-/* ______
-   Footer
-   ______ */
+/* Footer */
 
 footer {
     background-color: #ffffff;
@@ -460,6 +563,8 @@ footer {
     padding: 32px 0;
     text-align: center;
     margin-top: 48px;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
 }
 
 body.dark-mode footer {
@@ -472,12 +577,17 @@ footer p {
     font-size: 14px;
 }
 
-/* _________________________
-   Team Section (About Page)
-   _________________________ */
+/* Team Section (About Page) */
 
 .team-section {
-    padding: 32px 0;
+    padding: 48px 0;
+    background-color: #ffffff;
+    border-radius: 16px;
+    margin: 32px 0;
+}
+
+body.dark-mode .team-section {
+    background-color: #2d2d2d;
 }
 
 .team-section h2 {
@@ -495,7 +605,6 @@ footer p {
 
 .team-grid {
     display: flex;
-    flex-direction: row;
     flex-wrap: nowrap;
     gap: 32px;
     margin-top: 32px;
@@ -580,59 +689,7 @@ body.dark-mode .member-role {
     line-height: 1.6;
 }
 
-/* ________________
-   Submit Page Hero
-   ________________ */
-
-.submit-hero {
-    background: linear-gradient(135deg, #4f46e5 0%, #717de8 100%);
-    color: white;
-    padding: 48px 0;
-    text-align: center;
-    margin: 32px auto;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.submit-hero h2 {
-    color: white;
-    margin-bottom: 16px;
-}
-
-.submit-hero p {
-    color: rgba(255, 255, 255, 0.95);
-    font-size: 18px;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-/* ________________
-   About Page Hero
-   ________________ */
-
-.about-hero {
-    background: linear-gradient(135deg, #4f46e5 0%, #6372f4 100%);
-    color: white;
-    padding: 48px 0;
-    text-align: center;
-    margin: 32px auto;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.about-hero h2 {
-    color: white;
-    margin-bottom: 16px;
-}
-
-.about-hero .lead {
-    color: rgba(255, 255, 255, 0.95);
-    font-size: 18px;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-/* _________________________________
-   How to Help Section (Submit Page)
-   _________________________________ */
+/* How to Help Section (Submit Page) */
 
 .how-to-help {
     padding: 48px 0;
@@ -681,12 +738,17 @@ body.dark-mode .help-item h3 {
     margin: 0;
 }
 
-/* _____________________
-   About Page Content
-   _____________________ */
+/* About Page Content */
 
 .about-content {
     padding: 48px 0;
+    background-color: #ffffff;
+    border-radius: 16px;
+    margin: 32px 0;
+}
+
+body.dark-mode .about-content {
+    background-color: #2d2d2d;
 }
 
 .about-content article {
@@ -699,10 +761,7 @@ body.dark-mode .help-item h3 {
     padding: 48px 0;
 }
 
-/* _____________________
-   Responsive Design
-   _____________________ */
-/* Tablet */
+/* Responsive Design - Tablet */
 @media only screen and (min-width: 400px) and (max-width: 998px) {
     .header-content {
         flex-direction: column;
@@ -724,6 +783,10 @@ body.dark-mode .help-item h3 {
     
     .floor-grid {
         grid-template-columns: 50% 50%;
+    }
+
+    .floor-grid--three {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
     
     .team-grid {
@@ -752,7 +815,7 @@ body.dark-mode .help-item h3 {
     }
 }
 
-/* Mobile (max-width: 399px) */
+/* Responsive Design - Mobile */
 @media only screen and (max-width: 399px) {
     .header-content {
         flex-direction: column;
@@ -777,6 +840,10 @@ body.dark-mode .help-item h3 {
     .floor-grid {
         grid-template-columns: 100%;
     }
+
+    .floor-grid--three {
+        grid-template-columns: 1fr;
+    }
     
     .team-grid {
         flex-wrap: wrap;
@@ -793,6 +860,20 @@ body.dark-mode .help-item h3 {
     
     .help-grid {
         grid-template-columns: 100%;
+    }
+
+    .simple-form {
+        padding: 0 8px;
+    }
+
+    .form-buttons {
+        flex-direction: column;
+    }
+
+    .form-buttons .btn-primary,
+    .form-buttons .btn-secondary {
+        width: 100%;
+        text-align: center;
     }
     
     h1 {
