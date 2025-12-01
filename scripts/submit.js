@@ -1,63 +1,55 @@
-// Simple submit-page interactions: update range label, list submissions, show silly alert
+// Submit page form interactions
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('crowd-report-form');
     if (!form) return;
 
-    const floorSelect = document.getElementById('floor');
-    const busynessInput = document.getElementById('busyness');
-    const busynessLabel = document.getElementById('busyness-label');
-    const notesInput = document.getElementById('notes');
-    const reportList = document.getElementById('report-list');
+    const floor = document.getElementById('floor');
+    const busyness = document.getElementById('busyness');
+    const label = document.getElementById('busyness-label');
+    const notes = document.getElementById('notes');
+    const list = document.getElementById('report-list');
 
-    const updateBusynessLabel = () => {
-        if (busynessLabel && busynessInput) {
-            busynessLabel.textContent = busynessInput.value;
-        }
+    const updateLabel = () => {
+        if (label && busyness) label.textContent = busyness.value;
     };
 
-    const addReportToList = (report) => {
-        if (!reportList) return;
+    const addReport = (report) => {
+        if (!list) return;
 
-        // remove placeholder text when first real submission arrives
-        if (reportList.children.length === 1 && reportList.firstElementChild.textContent.includes('No reports')) {
-            reportList.innerHTML = '';
+        if (list.children.length === 1 && list.firstElementChild.textContent.includes('No reports')) {
+            list.innerHTML = '';
         }
 
-        const listItem = document.createElement('li');
+        const item = document.createElement('li');
         const noteText = report.notes ? ` — ${report.notes}` : ' — No extra notes';
-        listItem.textContent = `${report.floor} | Busy level ${report.busyness}/5${noteText}`;
-        reportList.prepend(listItem);
+        item.textContent = `${report.floor} | Busy level ${report.busyness}/5${noteText}`;
+        list.prepend(item);
     };
 
-    form.addEventListener('submit', (event) => {
-        event.preventDefault();
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
 
-        if (!floorSelect.value) {
+        if (!floor.value) {
             alert('Please pick a floor before sending your report.');
             return;
         }
 
-        const report = {
-            floor: floorSelect.value,
-            busyness: busynessInput?.value || '3',
-            notes: notesInput.value.trim()
-        };
+        addReport({
+            floor: floor.value,
+            busyness: busyness.value || '3',
+            notes: notes.value.trim()
+        });
 
-        addReportToList(report);
         alert('Thanks! Your response has been carefully discarded because this is a demo project.');
-
         form.reset();
-        if (busynessInput) {
-            busynessInput.value = '3';
-        }
-        updateBusynessLabel();
+        busyness.value = '3';
+        updateLabel();
     });
 
     form.addEventListener('reset', () => {
-        // wait for default values to return, then update label
-        window.requestAnimationFrame(updateBusynessLabel);
+        requestAnimationFrame(updateLabel);
     });
 
-    busynessInput?.addEventListener('input', updateBusynessLabel);
-    updateBusynessLabel();
+    busyness.addEventListener('input', updateLabel);
+    updateLabel();
 });
