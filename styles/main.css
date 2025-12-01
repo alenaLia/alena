@@ -218,8 +218,8 @@ body.dark-mode nav a[aria-current="page"] {
     margin-bottom: 16px;
 }
 
-.hero p {
-    color: rgba(255, 255, 255, 0.9);
+.hero p:not(.hero-subtext) {
+    color: #ffffff;
     font-size: 18px;
     max-width: 600px;
     margin: 0 auto;
@@ -251,6 +251,10 @@ body.dark-mode .hero-subtext {
     padding: 48px 0;
 }
 
+.floor-data h2 {
+    text-align: center;
+}
+
 .last-updated {
     font-size: 14px;
     color: #6c757d;
@@ -269,13 +273,21 @@ body.dark-mode .last-updated {
     margin-top: 24px;
 }
 
+.floor-grid--three {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 /* Floor Card Styles */
 .floor-card {
     background-color: #ffffff;
     border: 1px solid #dee2e6;
     border-radius: 16px;
-    padding: 24px;
+    padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 body.dark-mode .floor-card {
@@ -288,36 +300,31 @@ body.dark-mode .floor-card {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
-.floor-card h3 {
-    color: #6366f1;
-    margin-bottom: 16px;
+.card-meta {
+    font-size: 12px;
+    color: #6c757d;
 }
 
-body.dark-mode .floor-card h3 {
-    color: #818cf8;
+body.dark-mode .card-meta {
+    color: #c5c9d0;
 }
 
-.crowd-level {
-    font-size: 32px;
+.floor-card--square {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    aspect-ratio: 1 / 1;
+}
+
+.crowd-score {
+    font-size: 28px;
     font-weight: 700;
-    margin: 16px 0;
+    margin-bottom: 6px;
 }
 
-.crowd-indicator {
-    height: 8px;
-    background-color: #e9ecef;
-    border-radius: 4px;
-    overflow: hidden;
-    margin-top: 16px;
-}
-
-body.dark-mode .crowd-indicator {
-    background-color: #3a3a3a;
-}
-
-.crowd-indicator-fill {
-    height: 100%;
-    border-radius: 4px;
+.crowd-description {
+    flex: 1 1 auto;
+    font-size: 13px;
 }
 
 /* Crowd level colors */
@@ -344,6 +351,10 @@ body.dark-mode .crowd-indicator {
     margin: 32px 0;
 }
 
+.charts h2 {
+    text-align: center;
+}
+
 body.dark-mode .charts {
     background-color: #2d2d2d;
 }
@@ -355,13 +366,30 @@ body.dark-mode .charts {
     border: 1px solid #dee2e6;
     min-height: 300px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    gap: 16px;
 }
 
 body.dark-mode #chart-container {
     background-color: #1a1a1a;
     border-color: #4a4a4a;
+}
+
+#trend-canvas {
+    width: 100%;
+    max-width: 900px;
+    height: auto;
+}
+
+.chart-status {
+    font-size: 14px;
+    color: #6c757d;
+    text-align: center;
+}
+
+body.dark-mode .chart-status {
+    color: #cbd5f5;
 }
 
 /* _____________
@@ -409,6 +437,10 @@ body.dark-mode .btn-primary:hover {
     margin: 32px 0;
 }
 
+.report-form h2 {
+    text-align: center;
+}
+
 body.dark-mode .report-form {
     background-color: #2d2d2d;
 }
@@ -419,25 +451,116 @@ body.dark-mode .report-form {
     font-size: 18px;
 }
 
-.google-form-wrapper {
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: #f8f9fa;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border: 1px solid #dee2e6;
+.simple-form {
+    max-width: 640px;
+    margin: 0 auto 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
-body.dark-mode .google-form-wrapper {
-    background-color: #1a1a1a;
+.simple-form label {
+    font-weight: 600;
+    color: #212529;
+}
+
+body.dark-mode .simple-form label {
+    color: #f8f9fa;
+}
+
+.simple-form select,
+.simple-form textarea,
+.simple-form input[type="range"] {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 16px;
+    background-color: #ffffff;
+}
+
+body.dark-mode .simple-form select,
+body.dark-mode .simple-form textarea,
+body.dark-mode .simple-form input[type="range"] {
+    background-color: #2d2d2d;
+    border-color: #4a4a4a;
+    color: #f8f9fa;
+}
+
+.simple-form textarea {
+    resize: vertical;
+}
+
+.busyness-output {
+    font-size: 16px;
+    color: #6c757d;
+}
+
+body.dark-mode .busyness-output {
+    color: #cfd4dc;
+}
+
+.range-ticks {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-top: 4px;
+    color: #6c757d;
+}
+
+body.dark-mode .range-ticks {
+    color: #cfd4dc;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    border: 1px solid #ced4da;
+    color: #212529;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-secondary:hover {
+    background-color: #e9ecef;
+}
+
+body.dark-mode .btn-secondary {
+    color: #f8f9fa;
     border-color: #4a4a4a;
 }
 
-.google-form-wrapper iframe {
-    display: block;
-    width: 100%;
-    border: none;
+body.dark-mode .btn-secondary:hover {
+    background-color: #3a3a3a;
+}
+
+.submission-log {
+    max-width: 640px;
+    margin: 0 auto 16px;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    border: 1px solid #dee2e6;
+    padding: 24px;
+}
+
+body.dark-mode .submission-log {
+    background-color: #1f1f1f;
+    border-color: #3a3a3a;
+}
+
+.submission-log ul {
+    list-style: disc inside;
+    color: #212529;
+}
+
+body.dark-mode .submission-log ul {
+    color: #f8f9fa;
 }
 
 .form-note {
@@ -599,7 +722,7 @@ body.dark-mode .member-role {
 }
 
 .submit-hero p {
-    color: rgba(255, 255, 255, 0.95);
+    color: #ffffff;
     font-size: 18px;
     max-width: 600px;
     margin: 0 auto;
@@ -623,8 +746,10 @@ body.dark-mode .member-role {
     margin-bottom: 16px;
 }
 
-.about-hero .lead {
-    color: rgba(255, 255, 255, 0.95);
+.about-hero .lead,
+.hero .lead,
+.submit-hero .lead {
+    color: #ffffff;
     font-size: 18px;
     max-width: 600px;
     margin: 0 auto;
@@ -725,6 +850,10 @@ body.dark-mode .help-item h3 {
     .floor-grid {
         grid-template-columns: 50% 50%;
     }
+
+    .floor-grid--three {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
     
     .team-grid {
         flex-wrap: wrap;
@@ -777,6 +906,10 @@ body.dark-mode .help-item h3 {
     .floor-grid {
         grid-template-columns: 100%;
     }
+
+    .floor-grid--three {
+        grid-template-columns: 1fr;
+    }
     
     .team-grid {
         flex-wrap: wrap;
@@ -793,6 +926,20 @@ body.dark-mode .help-item h3 {
     
     .help-grid {
         grid-template-columns: 100%;
+    }
+
+    .simple-form {
+        padding: 0 8px;
+    }
+
+    .form-buttons {
+        flex-direction: column;
+    }
+
+    .form-buttons .btn-primary,
+    .form-buttons .btn-secondary {
+        width: 100%;
+        text-align: center;
     }
     
     h1 {

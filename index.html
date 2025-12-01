@@ -35,7 +35,7 @@
         <section class="hero">
             <div class="container">
                 <h2>Find Your Study Spot</h2>
-                <p>See real-time crowd levels reported by students across all three library floors.</p>
+                <p class="lead">See real-time crowd levels reported by students across all three library floors.</p>
                 <div class="hero-actions">
                     <a href="pages/submit.html" class="btn-primary">Submit Report</a>
                     <p class="hero-subtext">Help keep our data fresh and accurate!</p>
@@ -46,20 +46,19 @@
         <section class="floor-data">
             <div class="container">
                 <h2>Current Crowd Levels</h2>
-                <p class="last-updated">Last updated: <span id="last-update-time">[insert cool feature]</span></p>
-                
-                <div id="floor-list" class="floor-grid" role="region" aria-live="polite" aria-atomic="true">
-                    <!-- Floor cards will be dynamically inserted here by scripts/main.js -->
-                    <p>[Insert cool loading crowd data...]</p>
+                <div id="floor-list" class="floor-grid floor-grid--three" role="region" aria-live="polite" aria-atomic="true">
                 </div>
+                <p class="last-updated">Last updated: <span id="last-update-time"></span></p>
             </div>
         </section>
 
         <section class="charts">
             <div class="container">
                 <h2>Trend Visualization</h2>
+                <h4>Chart made with the help of Copilot because we're not this good yet!</h4`>
                 <div id="chart-container" role="img" aria-label="Chart showing crowd levels over time">
-                    <!-- Chart will be rendered here by scripts/charts.js -->
+                    <canvas id="trend-canvas" width="900" height="360" aria-hidden="true"></canvas>
+                    <p id="chart-status" class="chart-status">Loading hourly vibes…</p>
                 </div>
             </div>
         </section>

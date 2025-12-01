@@ -42,6 +42,47 @@ function updateThemeIcon(theme, iconElement) {
 // Data Loading & Display
 // ============================================
 
+async function loadData() {
+    try {
+        const response = await fetch('data/mock.json');
+        const data = await response.json();
+        
+        // Group data by floor
+        const floorMap = {};
+        data.forEach(entry => {
+            if (!floorMap[entry.floor]) {
+                floorMap[entry.floor] = [];
+            }
+            floorMap[entry.floor].push(entry);
+        });
+        
+        // Calculate average busyness and report count for each floor
+        const floors = [];
+        for (const floorName in floorMap) {
+            const entries = floorMap[floorName];
+            const totalBusyness = entries.reduce((sum, e) => sum + e.busyness, 0);
+            const avgBusyness = Math.round(totalBusyness / entries.length);
+            
+            // Extract floor number from name (e.g., "1st Floor" -> 1)
+            const floorNum = parseInt(floorName);
+            
+            floors.push({
+                floor: floorNum,
+                score: avgBusyness,
+                reportCount: entries.length
+            });
+        }
+        
+        // Sort by floor number
+        floors.sort((a, b) => a.floor - b.floor);
+        
+        return { floors };
+    } catch (error) {
+        console.error('Error loading data:', error);
+        return null;
+    }
+}
+
 function updateLastUpdateTime() {
     const timeElement = document.getElementById('last-update-time');
     if (timeElement) {
@@ -71,30 +112,34 @@ function renderFloorCards(floorData) {
 
 function createFloorCard(floor) {
     const card = document.createElement('div');
-    card.className = 'floor-card';
-    
-    const crowdLevel = getCrowdLevel(floor.occupancy);
-    const crowdText = getCrowdText(floor.occupancy);
-    
+    card.className = 'floor-card floor-card--square';
+
+    const crowdScore = getCrowdScore(floor);
+    const occupancyPercent = typeof floor.occupancy === 'number'
+        ? floor.occupancy
+        : (crowdScore / 5) * 100;
+    const crowdText = getCrowdText(occupancyPercent);
+
     card.innerHTML = `
         <h3>Floor ${floor.floor}</h3>
-        <div class="crowd-level">${Math.round(floor.occupancy)}%</div>
-        <p>${crowdText}</p>
-        <div class="crowd-indicator">
-            <div class="crowd-indicator-fill crowd-${crowdLevel}" 
-                 style="width: ${floor.occupancy}%"
-                 role="progressbar" 
-                 aria-valuenow="${floor.occupancy}" 
-                 aria-valuemin="0" 
-                 aria-valuemax="100">
-            </div>
-        </div>
-        <p style="margin-top: 0.5rem; font-size: 0.875rem;">
-            ${floor.reportCount || 0} recent reports
-        </p>
+        <p class="crowd-score">${crowdScore} / 5</p>
+        <p class="crowd-description">${crowdText}</p>
+        <p class="card-meta">${floor.reportCount || 0} recent reports</p>
     `;
-    
+
     return card;
+}
+
+function getCrowdScore(floor) {
+    const rawScore = typeof floor.score === 'number'
+        ? floor.score
+        : typeof floor.busyness === 'number'
+            ? floor.busyness
+            : typeof floor.occupancy === 'number'
+                ? (floor.occupancy / 100) * 5
+                : 3;
+
+    return Math.max(1, Math.min(5, Math.round(rawScore)));
 }
 
 function getCrowdLevel(occupancy) {
@@ -115,23 +160,25 @@ function getCrowdText(occupancy) {
 // Initialization
 // ============================================
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     // Initialize theme toggle
     initThemeToggle();
     
     // Update timestamp
     updateLastUpdateTime();
     
-    // Load and display floor data (will be replaced by actual data loading)
-    // For now, check if data.js provides a loadData function
-    if (typeof loadData === 'function') {
-        loadData().then(data => {
-            if (data && data.floors) {
-                renderFloorCards(data.floors);
-            }
-        }).catch(error => {
-            console.error('Error loading data:', error);
-        });
+    // Load and display floor data from mock.json
+    const data = await loadData();
+    if (data && data.floors) {
+        renderFloorCards(data.floors);
+    } else {
+        // Fallback data if loading fails
+        const sampleFloors = [
+            { floor: 1, score: 2, reportCount: 4 },
+            { floor: 2, score: 3, reportCount: 6 },
+            { floor: 3, score: 5, reportCount: 9 }
+        ];
+        renderFloorCards(sampleFloors);
     }
     
     // Update time every minute
