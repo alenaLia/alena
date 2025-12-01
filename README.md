@@ -2,6 +2,8 @@
 
 A real-time crowd monitoring web application for the Stevens library floors.
 
+[View The Website on GitHub Pages](https://buttermygit.github.io/OpenSeat/)
+
 ## Project Overview
 
 OpenSeat provides live crowd level information for each floor of the library. The website features:
