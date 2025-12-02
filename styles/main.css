@@ -776,6 +776,9 @@ body.dark-mode .about-content {
     nav ul {
         flex: 1 1 auto;
     }
+    nav ul li a {
+        white-space: nowrap;
+    }
     
     .hero {
         padding: 32px 24px;
@@ -829,8 +832,12 @@ body.dark-mode .about-content {
     
     nav ul {
         flex: 1 1 auto;
-        gap: 0;
-        font-size: 13px;
+        gap: 8px;
+        font-size: 10px;
+    }
+    nav ul li a {
+        padding: 6px 6px;
+        white-space: nowrap;
     }
     
     .hero {
