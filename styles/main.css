@@ -776,7 +776,7 @@ body.dark-mode .about-content {
         display: flex;
         align-items: center;
         gap: 16px;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
     }
     
     nav ul {
