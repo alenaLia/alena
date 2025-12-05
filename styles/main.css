@@ -111,7 +111,6 @@ body.dark-mode header {
     justify-content: space-between;
     align-items: center;
     gap: 24px;
-    flex-wrap: wrap;
 }
 
 .branding h1 {
@@ -323,6 +322,9 @@ body.dark-mode .card-meta {
     flex-direction: column;
     justify-content: space-between;
     aspect-ratio: 1 / 1;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
 }
 
 .crowd-score {
@@ -800,7 +802,7 @@ body.dark-mode .about-content {
     }
 
     .floor-grid--three {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
     
     .team-grid {
