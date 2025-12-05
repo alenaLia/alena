@@ -111,7 +111,6 @@ body.dark-mode header {
     justify-content: space-between;
     align-items: center;
     gap: 24px;
-    flex-wrap: wrap;
 }
 
 .branding h1 {
@@ -323,6 +322,9 @@ body.dark-mode .card-meta {
     flex-direction: column;
     justify-content: space-between;
     aspect-ratio: 1 / 1;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
 }
 
 .crowd-score {
@@ -766,13 +768,11 @@ body.dark-mode .about-content {
 /* Responsive Design - Tablet */
 @media only screen and (min-width: 400px) and (max-width: 998px) {
     .header-content {
-        flex-direction: column;
-        align-items: flex-start;
+        gap: 16px;
     }
     
     .header-controls {
-        width: 100%;
-        justify-content: space-between;
+        gap: 16px;
     }
     
     nav ul {
@@ -791,7 +791,7 @@ body.dark-mode .about-content {
     }
 
     .floor-grid--three {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
     
     .team-grid {
@@ -823,13 +823,11 @@ body.dark-mode .about-content {
 /* Responsive Design - Mobile */
 @media only screen and (max-width: 399px) {
     .header-content {
-        flex-direction: column;
-        align-items: flex-start;
+        gap: 12px;
     }
     
     .header-controls {
-        width: 100%;
-        justify-content: space-between;
+        gap: 12px;
     }
     
     nav ul {
