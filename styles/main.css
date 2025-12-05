@@ -769,17 +769,28 @@ body.dark-mode .about-content {
 @media only screen and (min-width: 400px) and (max-width: 998px) {
     .header-content {
         gap: 16px;
+        align-items: center;
     }
     
     .header-controls {
+        display: flex;
+        align-items: center;
         gap: 16px;
+        flex-wrap: nowrap;
     }
     
     nav ul {
-        flex: 1 1 auto;
+        display: flex;
+        flex: 0 0 auto;           
+        gap: 8px;                
+        margin: 0;
+        padding: 0;
+        list-style: none;
     }
     nav ul li a {
         white-space: nowrap;
+        padding: 4px 8px;        
+        font-size: 12px;
     }
     
     .hero {
@@ -818,25 +829,42 @@ body.dark-mode .about-content {
     h2 {
         font-size: 26px;
     }
+    #chart-container {
+        padding: 20px;
+        min-height: auto;
+        align-items: stretch;
+
+    }
 }
 
 /* Responsive Design - Mobile */
 @media only screen and (max-width: 399px) {
     .header-content {
+        flex-direction: column;
+        align-items: flex-start;
         gap: 12px;
     }
     
     .header-controls {
-        gap: 12px;
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: wrap;             
+        gap: 8px;
     }
     
     nav ul {
-        flex: 1 1 auto;
-        gap: 8px;
+        display: flex;
+        flex: 0 0 auto;       
+        flex-wrap: wrap;          
+        gap: 4px;                   
         font-size: 10px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
     }
     nav ul li a {
-        padding: 6px 6px;
+        padding: 4px 6px;
         white-space: nowrap;
     }
     
@@ -903,5 +931,10 @@ body.dark-mode .about-content {
     
     .container {
         padding: 0 16px;
+    }
+    #chart-container {
+        padding: 12px 8px;
+        min-height: auto;
+        align-items: stretch;
     }
 }
